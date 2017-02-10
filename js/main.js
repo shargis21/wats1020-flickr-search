@@ -10,12 +10,15 @@ $(document).on('ready', function(){
       var searchImages = function(tags){
         var flickrAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
           console.log(tags);
-                 $.getJSON(flickrAPI,{
+          $('#images').innerHTML = '<li class="search-throbber">Searching...</li>';
+                 $.getJSON(flickrAPI, {
                    'tags': tags,
                    'tagmode': "any",
                    'format': "json"
-          }).done(function(data){
-                 $.each(data.items,function(i,item){
+          }).done(function( data ) {
+             $('#images').empty();
+             $('h1.search-title').first()[0].innerHTML = "Search for: " + tags;
+                 $.each(data.items, function( i, item ) {
                  var newListItem = $("<li>")
                  var newTitle = $('<p class="image-title">')
                  var newDate = $('<p class="image-date">')
